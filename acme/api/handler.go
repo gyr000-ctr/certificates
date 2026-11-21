@@ -179,6 +179,8 @@ func route(r api.Router, middleware func(next nextHTTP) nextHTTP) {
 		extractPayloadByKid(isPostAsGet(GetCertificate)))
 	r.MethodFunc("POST", getPath(acme.RevokeCertLinkType, "{provisionerID}"),
 		extractPayloadByKidOrJWK(RevokeCert))
+	r.MethodFunc("GET", getPath(acme.RenewalInfoLinkType, "{provisionerID}", "{certID}"),
+		commonMiddleware(GetRenewalInfo))
 }
 
 // GetNonce just sets the right header since a Nonce is added to each response
@@ -200,12 +202,13 @@ type Meta struct {
 
 // Directory represents an ACME directory for configuring clients.
 type Directory struct {
-	NewNonce   string `json:"newNonce"`
-	NewAccount string `json:"newAccount"`
-	NewOrder   string `json:"newOrder"`
-	RevokeCert string `json:"revokeCert"`
-	KeyChange  string `json:"keyChange"`
-	Meta       *Meta  `json:"meta,omitempty"`
+	NewNonce    string `json:"newNonce"`
+	NewAccount  string `json:"newAccount"`
+	NewOrder    string `json:"newOrder"`
+	RevokeCert  string `json:"revokeCert"`
+	KeyChange   string `json:"keyChange"`
+	RenewalInfo string `json:"renewalInfo,omitempty"`
+	Meta        *Meta  `json:"meta,omitempty"`
 }
 
 // ToLog enables response logging for the Directory type.
@@ -230,12 +233,13 @@ func GetDirectory(w http.ResponseWriter, r *http.Request) {
 	linker := acme.MustLinkerFromContext(ctx)
 
 	render.JSON(w, r, &Directory{
-		NewNonce:   linker.GetLink(ctx, acme.NewNonceLinkType),
-		NewAccount: linker.GetLink(ctx, acme.NewAccountLinkType),
-		NewOrder:   linker.GetLink(ctx, acme.NewOrderLinkType),
-		RevokeCert: linker.GetLink(ctx, acme.RevokeCertLinkType),
-		KeyChange:  linker.GetLink(ctx, acme.KeyChangeLinkType),
-		Meta:       createMetaObject(acmeProv),
+		NewNonce:    linker.GetLink(ctx, acme.NewNonceLinkType),
+		NewAccount:  linker.GetLink(ctx, acme.NewAccountLinkType),
+		NewOrder:    linker.GetLink(ctx, acme.NewOrderLinkType),
+		RevokeCert:  linker.GetLink(ctx, acme.RevokeCertLinkType),
+		KeyChange:   linker.GetLink(ctx, acme.KeyChangeLinkType),
+		RenewalInfo: linker.GetLink(ctx, acme.RenewalInfoLinkType),
+		Meta:        createMetaObject(acmeProv),
 	})
 }
 

@@ -108,11 +108,12 @@ func TestHandler_GetDirectory(t *testing.T) {
 			baseURL := &url.URL{Scheme: "https", Host: "test.ca.smallstep.com"}
 			ctx := acme.NewProvisionerContext(context.Background(), prov)
 			expDir := Directory{
-				NewNonce:   fmt.Sprintf("%s/acme/%s/new-nonce", baseURL.String(), provName),
-				NewAccount: fmt.Sprintf("%s/acme/%s/new-account", baseURL.String(), provName),
-				NewOrder:   fmt.Sprintf("%s/acme/%s/new-order", baseURL.String(), provName),
-				RevokeCert: fmt.Sprintf("%s/acme/%s/revoke-cert", baseURL.String(), provName),
-				KeyChange:  fmt.Sprintf("%s/acme/%s/key-change", baseURL.String(), provName),
+				NewNonce:    fmt.Sprintf("%s/acme/%s/new-nonce", baseURL.String(), provName),
+				NewAccount:  fmt.Sprintf("%s/acme/%s/new-account", baseURL.String(), provName),
+				NewOrder:    fmt.Sprintf("%s/acme/%s/new-order", baseURL.String(), provName),
+				RevokeCert:  fmt.Sprintf("%s/acme/%s/revoke-cert", baseURL.String(), provName),
+				KeyChange:   fmt.Sprintf("%s/acme/%s/key-change", baseURL.String(), provName),
+				RenewalInfo: fmt.Sprintf("%s/acme/%s/renewal-info", baseURL.String(), provName),
 			}
 			return test{
 				ctx:        ctx,
@@ -127,11 +128,12 @@ func TestHandler_GetDirectory(t *testing.T) {
 			baseURL := &url.URL{Scheme: "https", Host: "test.ca.smallstep.com"}
 			ctx := acme.NewProvisionerContext(context.Background(), prov)
 			expDir := Directory{
-				NewNonce:   fmt.Sprintf("%s/acme/%s/new-nonce", baseURL.String(), provName),
-				NewAccount: fmt.Sprintf("%s/acme/%s/new-account", baseURL.String(), provName),
-				NewOrder:   fmt.Sprintf("%s/acme/%s/new-order", baseURL.String(), provName),
-				RevokeCert: fmt.Sprintf("%s/acme/%s/revoke-cert", baseURL.String(), provName),
-				KeyChange:  fmt.Sprintf("%s/acme/%s/key-change", baseURL.String(), provName),
+				NewNonce:    fmt.Sprintf("%s/acme/%s/new-nonce", baseURL.String(), provName),
+				NewAccount:  fmt.Sprintf("%s/acme/%s/new-account", baseURL.String(), provName),
+				NewOrder:    fmt.Sprintf("%s/acme/%s/new-order", baseURL.String(), provName),
+				RevokeCert:  fmt.Sprintf("%s/acme/%s/revoke-cert", baseURL.String(), provName),
+				KeyChange:   fmt.Sprintf("%s/acme/%s/key-change", baseURL.String(), provName),
+				RenewalInfo: fmt.Sprintf("%s/acme/%s/renewal-info", baseURL.String(), provName),
 				Meta: &Meta{
 					ExternalAccountRequired: true,
 				},
@@ -152,11 +154,12 @@ func TestHandler_GetDirectory(t *testing.T) {
 			baseURL := &url.URL{Scheme: "https", Host: "test.ca.smallstep.com"}
 			ctx := acme.NewProvisionerContext(context.Background(), prov)
 			expDir := Directory{
-				NewNonce:   fmt.Sprintf("%s/acme/%s/new-nonce", baseURL.String(), provName),
-				NewAccount: fmt.Sprintf("%s/acme/%s/new-account", baseURL.String(), provName),
-				NewOrder:   fmt.Sprintf("%s/acme/%s/new-order", baseURL.String(), provName),
-				RevokeCert: fmt.Sprintf("%s/acme/%s/revoke-cert", baseURL.String(), provName),
-				KeyChange:  fmt.Sprintf("%s/acme/%s/key-change", baseURL.String(), provName),
+				NewNonce:    fmt.Sprintf("%s/acme/%s/new-nonce", baseURL.String(), provName),
+				NewAccount:  fmt.Sprintf("%s/acme/%s/new-account", baseURL.String(), provName),
+				NewOrder:    fmt.Sprintf("%s/acme/%s/new-order", baseURL.String(), provName),
+				RevokeCert:  fmt.Sprintf("%s/acme/%s/revoke-cert", baseURL.String(), provName),
+				KeyChange:   fmt.Sprintf("%s/acme/%s/key-change", baseURL.String(), provName),
+				RenewalInfo: fmt.Sprintf("%s/acme/%s/renewal-info", baseURL.String(), provName),
 				Meta: &Meta{
 					TermsOfService:          "https://terms.ca.local/",
 					Website:                 "https://ca.local/",

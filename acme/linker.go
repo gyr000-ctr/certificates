@@ -46,6 +46,8 @@ const (
 	RevokeCertLinkType
 	// KeyChangeLinkType key rollover
 	KeyChangeLinkType
+	// RenewalInfoLinkType renewal information (RFC 9773)
+	RenewalInfoLinkType
 )
 
 func (l LinkType) String() string {
@@ -74,6 +76,8 @@ func (l LinkType) String() string {
 		return "revoke-cert"
 	case KeyChangeLinkType:
 		return "key-change"
+	case RenewalInfoLinkType:
+		return "renewal-info"
 	default:
 		return fmt.Sprintf("unexpected LinkType '%d'", int(l))
 	}
@@ -83,6 +87,11 @@ func GetUnescapedPathSuffix(typ LinkType, provisionerName string, inputs ...stri
 	switch typ {
 	case NewNonceLinkType, NewAccountLinkType, NewOrderLinkType, NewAuthzLinkType, DirectoryLinkType, KeyChangeLinkType, RevokeCertLinkType:
 		return fmt.Sprintf("/%s/%s", provisionerName, typ)
+	case RenewalInfoLinkType:
+		if len(inputs) == 0 {
+			return fmt.Sprintf("/%s/%s", provisionerName, typ)
+		}
+		return fmt.Sprintf("/%s/%s/%s", provisionerName, typ, inputs[0])
 	case AccountLinkType, OrderLinkType, AuthzLinkType, CertificateLinkType:
 		return fmt.Sprintf("/%s/%s/%s", provisionerName, typ, inputs[0])
 	case ChallengeLinkType:

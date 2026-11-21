@@ -46,6 +46,8 @@ func TestGetUnescapedPathSuffix(t *testing.T) {
 	assert.Equals(t, getPath(AuthzLinkType, "{provisionerID}", "{authzID}"), "/{provisionerID}/authz/{authzID}")
 	assert.Equals(t, getPath(ChallengeLinkType, "{provisionerID}", "{authzID}", "{chID}"), "/{provisionerID}/challenge/{authzID}/{chID}")
 	assert.Equals(t, getPath(CertificateLinkType, "{provisionerID}", "{certID}"), "/{provisionerID}/certificate/{certID}")
+	assert.Equals(t, getPath(RenewalInfoLinkType, "{provisionerID}"), "/{provisionerID}/renewal-info")
+	assert.Equals(t, getPath(RenewalInfoLinkType, "{provisionerID}", "{certID}"), "/{provisionerID}/renewal-info/{certID}")
 }
 
 func TestLinker_DNS(t *testing.T) {
